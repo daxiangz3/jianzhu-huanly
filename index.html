@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft 1.12.2 怀旧服</title>
+    <style>
+        /* 基础样式和变量定义 */
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --accent-color: #f1c40f;
+            --text-color: #ecf0f1;
+            --bg-color: #2c3e50;
+            --card-bg: #34495e;
+            --border-block: #5d4037;
+            --grass-top: #71b340;
+            --grass-side: #5d9132;
+            --stone: #95a5a6;
+            --wood: #8B4513;
+            --wood-dark: #6a3205;
+            --dirt: #8c6d46;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Minecraft', Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: url('data:image/svg+xml;utf8,<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="%232c3e50"/><rect width="100" height="100" fill="%2371b340"/><rect x="100" y="0" width="100" height="100" fill="%2371b340"/><rect x="0" y="100" width="100" height="100" fill="%235d9132"/><rect x="100" y="100" width="100" height="100" fill="%235d9132"/></svg>');
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            image-rendering: pixelated;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 100px;
+        }
+        
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://fonts.cdnfonts.com/css/minecraft-4') format('woff2');
+            font-display: swap;
+        }
+        
+        /* 加载动画 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-logo {
+            width: 800px;
+            height: auto;
+            margin-bottom: 50px;
+            filter: drop-shadow(0 0 15px rgba(241, 196, 15, 0.5));
+        }
+        
+        .loading-text {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(241, 196, 15, 0.7);
+        }
+        
+        .loading-spinner {
+            width: 30px;
+            height: 30px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid var(--accent-color);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 4px solid var(--border-block);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            text-shadow: 2px 2px 0 #000;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            text-shadow: 1px 1px 0 #000;
+        }
+        
+        .nav-links a:hover {
+            background-color: var(--card-bg);
+            color: var(--accent-color);
+        }
+        
+        /* 页面头部 */
+        .header {
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/resources/title.png');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            border-bottom: 8px solid var(--border-block);
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background-color: var(--grass-top);
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--grass-top);
+        }
+        
+        .header-decoration {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .header-decoration div {
+            width: 32px;
+            height: 32px;
+            background-color: var(--accent-color);
+            border: 3px solid #000;
+            box-shadow: 0 3px 0 #000;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin: 0;
+            text-shadow: 4px 4px 0 #000;
+            color: var(--accent-color);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* 主要内容容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .section-title {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            text-shadow: 2px 2px 0 #000;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* 服务器信息 */
+        .server-info {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 3px solid var(--border-block);
+        }
+        
+        .server-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .stat-item {
+            background-color: rgba(0,0,0,0.3);
+            padding: 0.8rem 1.2rem;
+            border-radius: 5px;
+            border: 2px solid var(--border-block);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .stat-item::before {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-color: var(--accent-color);
+            border: 2px solid #000;
+        }
+        
+        /* 分隔线 */
+        .minecraft-divider {
+            border: none;
+            height: 8px;
+            background: linear-gradient(to right, transparent, var(--grass-top), var(--grass-side), transparent);
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .minecraft-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, transparent, var(--border-block), transparent);
+        }
+        
+        /* 服务器特色 */
+        .server-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 3px solid var(--border-block);
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 0 #000;
+        }
+        
+        /* 管理员信息 */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .nav-card {
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 3px solid var(--border-block);
+            box-shadow: 0 5px 0 #2c3e50;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        }
+        
+        .nav-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 13px 0 #2c3e50;
+            border-color: var(--primary-color);
+        }
+        
+        .nav-card img {
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            image-rendering: pixelated;
+            background-color: var(--stone);
+            padding: 4px;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.3);
+        }
+        
+        .nav-card h3 {
+            color: var(--accent-color);
+            margin: 0.5rem 0;
+            text-shadow: 2px 2px 0 #000;
+        }
+        
+        .nav-card:hover img {
+            transform: scale(1.1) rotate(5deg);
+            border-color: var(--accent-color);
+        }
+        
+        .nav-card p {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 0.5rem 0;
+            color: var(--accent-color);
+        }
+        
+        /* 按钮样式 */
+        .minecraft-btn {
+            display: inline-block;
+            background-color: var(--grass-top);
+            color: #fff;
+            font-weight: bold;
+            padding: 12px 24px;
+            text-decoration: none;
+            border: 3px solid #000;
+            border-bottom-width: 6px;
+            border-radius: 3px;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            text-shadow: 2px 2px 0 #000;
+            box-shadow: 0 4px 0 var(--grass-side), 0 6px 0 #000;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        
+        .minecraft-btn:hover {
+            transform: translateY(3px);
+            border-bottom-width: 3px;
+            box-shadow: 0 1px 0 var(--grass-side), 0 3px 0 #000;
+        }
+        
+        .minecraft-btn:active {
+            transform: translateY(5px);
+            border-bottom-width: 1px;
+            box-shadow: 0 0 0 var(--grass-side), 0 1px 0 #000;
+        }
+        
+        .nav-card a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            margin-top: 0.5rem;
+            background-color: var(--wood);
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 3px;
+            border: 2px solid var(--wood-dark);
+            box-shadow: 0 3px 0 var(--wood-dark);
+            font-size: 0.9em;
+        }
+        
+        .nav-card a:hover {
+            color: var(--accent-color);
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 var(--wood-dark);
+        }
+        
+        /* 服务器截图展示 */
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .screenshot {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 3px solid var(--border-block);
+            position: relative;
+            height: 200px;
+            background-color: var(--card-bg);
+        }
+        
+        .screenshot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .screenshot:hover img {
+            transform: scale(1.1);
+        }
+        
+        .screenshot::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+        
+        /* 加入服务器部分 */
+        .join-section {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border: 3px solid var(--border-block);
+        }
+        
+        .join-section h2 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        .server-address {
+            background-color: rgba(0,0,0,0.3);
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            border: 2px solid var(--border-block);
+            color: var(--accent-color);
+            display: inline-block;
+        }
+        
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--card-bg);
+            margin-top: 2rem;
+            border-top: 8px solid var(--border-block);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--grass-top);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* 留空区域 */
+        .empty-space {
+            height: 100px;
+            margin-top: 30px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .admin-grid, .server-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .loading-logo {
+                width: 250px;
+            }
+            
+            .loading-text {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 加载动画 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <img src="/resources/Mojang-Logo.png" alt="Mojang Logo" class="loading-logo">
+        <div class="loading-text">
+            <span>加载中</span>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <a href="#" class="logo">MC 1.12.2 怀旧服</a>
+        <div class="nav-links">
+            <a href="#about">服务器简介</a>
+            <a href="#gallery">截图展示</a>
+            <a href="#staff">管理团队</a>
+        </div>
+    </nav>
+    
+    <!-- 页面头部 -->
+    <header class="header">
+        <div class="header-decoration">
+            <div></div>
+            <div></div>
+        </div>
+        <h1>Minecraft 1.12.2 怀旧服</h1>
+    </header>
+    
+    <!-- 主要内容 -->
+    <div class="container">
+        <!-- 服务器简介 -->
+        <section id="about">
+            <h2 class="section-title">服务器简介</h2>
+            <div class="server-info">
+                <p>欢迎加入Minecraft 1.12.2怀旧服，这里有最纯粹的游戏体验和友好的社区氛围。我们致力于还原经典版本的游戏乐趣，让大家重温 Minecraft 的美好回忆。</p>
+                
+                <div class="server-stats">
+                    <div class="stat-item">🟢 服务器状态: 在线</div>
+                    <div class="stat-item">👥 当前在线: ？/100</div>
+                    <div class="stat-item">🕒 开服时间: 2025年6月6日</div>
+                    <div class="stat-item">🎮 游戏版本: 1.12.2 forge</div>
+                </div>
+            </div>
+        </section>
+        
+        <hr class="minecraft-divider">
+        
+        <!-- 截图展示 -->
+        <section id="gallery">
+            <h2 class="section-title">截图展示</h2>
+            <div class="screenshots">
+                <div class="screenshot">
+                    <img src="resources/screenshots1.png" alt="玩家建筑">
+                </div>
+                <div class="screenshot">
+                    <img src="resources/screenshots2.png" alt="玩家建筑">
+                </div>
+                <div class="screenshot">
+                    <img src="resources/screenshots3.png" alt="玩家建筑">
+                </div>
+            </div>
+        </section>
+        
+        <hr class="minecraft-divider">
+        
+        <!-- 腐竹信息 -->
+        <section id="staff">
+            <h2 class="section-title">腐竹信息</h2>
+            <div class="admin-grid">
+                <div class="nav-card">
+                    <img src="/resources/huanly.webp" alt="华夫饼" />
+                    <div>
+                        <h3>华夫饼</h3>
+                        <h6>华夫huanly</h6>
+                        <p>服务器腐竹</p>
+                        <a href="https://space.bilibili.com/1728741267/">bilibili主页</a>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title" style="margin-top: 2rem;">管理员信息</h2>
+            <div class="admin-grid">
+                <div class="nav-card">
+                    <img src="/resources/seicat.webp" alt="SeicatNotCat" />
+                    <div>
+                        <h3>SeicatNotCat</h3>
+                        <p>管理员</p>
+                        <a href="https://space.bilibili.com/630284239">bilibili主页</a>
+                    </div>
+                </div>
+                <div class="nav-card">
+                    <img src="/resources/daxiangz3.webp" alt="坚持梦想的象" />
+                    <div>
+                        <h3>坚持梦想的象</h3>
+                        <p>管理员</p>
+                        <a href="https://space.bilibili.com/1848005406">bilibili主页</a>
+                    </div>
+                </div>
+                <div class="nav-card">
+                    <img src="/resources/tianxie.webp" alt="天awa蝎" />
+                    <div>
+                        <h3>天awa蝎</h3>
+                        <p>管理员</p>
+                        <a href="https://space.bilibili.com/3493125018356416">bilibili主页</a>
+                    </div>
+                </div>
+                <div class="empty-space"></div>
+                <div class="empty-space"></div>
+            </div>
+            
+            <!-- 添加的留空区域 -->
+            
+        </section>
+        <section id="download">
+            <h2 class="section-title">整合包下载</h2>
+            <div class="nav-card">
+                <h3>服务器IP：</h3>
+                <p>不知道</p>
+                <a href="1.12.2华夫饼.mrpack" download="/1.12.2华夫饼.mrpack"> 下载按钮 </a>
+            </div>
+            <div class="empty-space"></div>
+        </section>
+
+
+    </div>
+    
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>© 2025 Minecraft 1.12.2 怀旧服 - 所有权利保留</p>
+        <div class="footer-links">
+            <a href="showAlert">🏠️ 主页</a>
+            <a href="server-rule.html">📜 服务器规则</a>
+            <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=fYzHgCHAHXCNSSLscgxsQXBpp3eo1C-X&jump_from=webapi&authKey=LrcFJGQYtISOMDzVq8jgAeboE9FkqBK4zuE6zb9zRT0yT6NSQdYPDxrnU4DMYuQd"><alt="💬 玩家交流群" title="玩家交流群">💬 玩家交流群</a>
+            <a href="Notice">📰 最新公告</a>
+        </div>
+        <div class="footer-info">
+            <p>本服务器非官方服务器</p>
+            <p>Minecraft 及相关商标均为 Mojang Studios 的财产</p>
+        </div>
+    </footer>
+    
+    
+    <script>
+
+        // JavaScript代码
+        function showAlert() {
+            alert("您已在此页面！");
+        }
+
+        function Notice() {
+            alert("压根就没公告，嘿嘿(=´ω`=)");
+        }
+
+        // 页面加载完成后隐藏加载动画
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                loadingOverlay.style.opacity = '0';
+                setTimeout(function() {
+                    loadingOverlay.style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+        
+        // 平滑滚动到锚点
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 60,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
