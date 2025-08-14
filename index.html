@@ -4,34 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minecraft 1.12.2 怀旧服</title>
+    <link rel="stylesheet" href="common.css">
     <style>
-        /* 基础样式和变量定义 */
-        :root {
-            --primary-color: #2ecc71;
-            --secondary-color: #27ae60;
-            --accent-color: #f1c40f;
-            --text-color: #ecf0f1;
-            --bg-color: #2c3e50;
-            --card-bg: #34495e;
-            --border-block: #5d4037;
-            --grass-top: #71b340;
-            --grass-side: #5d9132;
-            --stone: #95a5a6;
-            --wood: #8B4513;
-            --wood-dark: #6a3205;
-            --dirt: #8c6d46;
-        }
-        
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
+        /* 页面特定样式 */
         body {
-            font-family: 'Minecraft', Arial, sans-serif;
-            background-color: var(--bg-color);
-            background-image: url('data:image/svg+xml;utf8,<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="%232c3e50"/><rect width="100" height="100" fill="%2371b340"/><rect x="100" y="0" width="100" height="100" fill="%2371b340"/><rect x="0" y="100" width="100" height="100" fill="%235d9132"/><rect x="100" y="100" width="100" height="100" fill="%235d9132"/></svg>');
             margin: 0;
             padding: 0;
             color: var(--text-color);
@@ -47,51 +23,7 @@
             font-display: swap;
         }
         
-        /* 加载动画 */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-        
-        .loading-logo {
-            width: 800px;
-            height: auto;
-            margin-bottom: 50px;
-            filter: drop-shadow(0 0 15px rgba(241, 196, 15, 0.5));
-        }
-        
-        .loading-text {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 1.8rem;
-            color: var(--accent-color);
-            text-shadow: 0 0 10px rgba(241, 196, 15, 0.7);
-        }
-        
-        .loading-spinner {
-            width: 30px;
-            height: 30px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 4px solid var(--accent-color);
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+
         
         /* 导航栏 */
         .navbar {
@@ -420,6 +352,43 @@
             transform: translateY(2px);
             box-shadow: 0 1px 0 var(--wood-dark);
         }
+
+        /* 整合包下载卡片 */
+        .download-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            border: 3px solid var(--border-block);
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .download-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+        .download-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+            border: 4px solid var(--primary-color);
+            border-radius: 50%;
+            image-rendering: pixelated;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.3);
+        }
+        .download-btn {
+            margin: 1.5rem 0;
+            background-color: var(--accent-color);
+            box-shadow: 0 4px 0 var(--accent-color-dark), 0 6px 0 #000;
+        }
+        .server-ip {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            text-shadow: 1px 1px 0 #000;
+        }
         
         /* 服务器截图展示 */
         .screenshots {
@@ -551,25 +520,12 @@
                 justify-content: center;
             }
             
-            .loading-logo {
-                width: 250px;
-            }
-            
-            .loading-text {
-                font-size: 1.4rem;
-            }
+
         }
     </style>
 </head>
 <body>
-    <!-- 加载动画 -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <img src="/resources/Mojang-Logo.png" alt="Mojang Logo" class="loading-logo">
-        <div class="loading-text">
-            <span>加载中</span>
-            <div class="loading-spinner"></div>
-        </div>
-    </div>
+
     
     <!-- 导航栏 -->
     <nav class="navbar">
@@ -578,6 +534,7 @@
             <a href="#about">服务器简介</a>
             <a href="#gallery">截图展示</a>
             <a href="#staff">管理团队</a>
+            <a href="#download">下载</a>
         </div>
     </nav>
     
@@ -653,7 +610,7 @@
                     </div>
                 </div>
                 <div class="nav-card">
-                    <img src="/resources/daxiangz3.webp" alt="坚持梦想的象" />
+                    <img src="/resources/daxiangz3.jpg" alt="坚持梦想的象" />
                     <div>
                         <h3>坚持梦想的象</h3>
                         <p>管理员</p>
@@ -677,10 +634,12 @@
         </section>
         <section id="download">
             <h2 class="section-title">整合包下载</h2>
-            <div class="nav-card">
-                <h3>服务器IP：</h3>
-                <p>不知道</p>
-                <a href="/resources/1.12.2华夫饼.mrpack" download="1.12.2华夫饼"> 下载按钮 </a>
+            <div class="download-card">
+                <img src="resources/huanly.webp" alt="整合包图标" class="download-icon">
+                <h3>怀旧服整合包下载</h3>
+                <p>点击下方按钮下载专用整合包，内含完整MOD</p>
+                <a href="resources/1.12.2华夫饼.mrpack" class="minecraft-btn download-btn">立即下载整合包</a>
+                <p class="server-ip">服务器IP：不知道</p>
             </div>
             <div class="empty-space"></div>
         </section>
@@ -692,10 +651,10 @@
     <footer class="footer">
         <p>© 2025 Minecraft 1.12.2 怀旧服 - 所有权利保留</p>
         <div class="footer-links">
-            <a href="showAlert">🏠️ 主页</a>
+            <a href="javascript:void(0);" onclick="showAlert()">🏠️ 主页</a>
             <a href="server-rule.html">📜 服务器规则</a>
             <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=fYzHgCHAHXCNSSLscgxsQXBpp3eo1C-X&jump_from=webapi&authKey=LrcFJGQYtISOMDzVq8jgAeboE9FkqBK4zuE6zb9zRT0yT6NSQdYPDxrnU4DMYuQd"><alt="💬 玩家交流群" title="玩家交流群">💬 玩家交流群</a>
-            <a href="Notice">📰 最新公告</a>
+            <a href="javascript:void(0);" onclick="Notice()">📰 最新公告</a>
         </div>
         <div class="footer-info">
             <p>本服务器非官方服务器</p>
