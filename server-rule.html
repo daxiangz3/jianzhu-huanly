@@ -5,94 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minecraft 1.12.2 怀旧服 服务器规则</title>
+    <link rel="stylesheet" href="common.css">
     <style>
-        /* 基础样式和变量定义 */
-        :root {
-            --primary-color: #2ecc71;
-            --secondary-color: #27ae60;
-            --accent-color: #f1c40f;
-            --text-color: #ecf0f1;
-            --bg-color: #2c3e50;
-            --card-bg: #34495e;
-            --border-block: #5d4037;
-            --grass-top: #71b340;
-            --grass-side: #5d9132;
-            --stone: #95a5a6;
-            --wood: #8B4513;
-            --wood-dark: #6a3205;
-            --dirt: #8c6d46;
-        }
+        /* 页面特定样式 */
         
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
-        body {
-            font-family: 'Minecraft', Arial, sans-serif;
-            background-color: var(--bg-color);
-            background-image: url('data:image/svg+xml;utf8,<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="%232c3e50"/><rect width="100" height="100" fill="%2371b340"/><rect x="100" y="0" width="100" height="100" fill="%2371b340"/><rect x="0" y="100" width="100" height="100" fill="%235d9132"/><rect x="100" y="100" width="100" height="100" fill="%235d9132"/></svg>');
-            margin: 0;
-            padding: 0;
-            color: var(--text-color);
-            image-rendering: pixelated;
-            min-height: 100vh;
-            position: relative;
-            padding-bottom: 100px;
-        }
-        
-        @font-face {
-            font-family: 'Minecraft';
-            src: url('https://fonts.cdnfonts.com/css/minecraft-4') format('woff2');
-            font-display: swap;
-        }
-        
-        /* 加载动画 */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-        
-        .loading-logo {
-            width: 800px;
-            height: auto;
-            margin-bottom: 50px;
-            filter: drop-shadow(0 0 15px rgba(241, 196, 15, 0.5));
-        }
-        
-        .loading-text {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 1.8rem;
-            color: var(--accent-color);
-            text-shadow: 0 0 10px rgba(241, 196, 15, 0.7);
-        }
-        
-        .loading-spinner {
-            width: 30px;
-            height: 30px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 4px solid var(--accent-color);
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+
         
         /* 导航栏 */
         .navbar {
@@ -572,15 +489,6 @@
     </style>
 </head>
 <body>
-    <!-- 加载动画 -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <img src="/resources/Mojang-Logo.png" alt="Mojang Logo" class="loading-logo">
-        <div class="loading-text">
-            <span>加载中</span>
-            <div class="loading-spinner"></div>
-        </div>
-    </div>
-    
     <!-- 导航栏 -->
     <nav class="navbar">
         <a href="#" class="logo">MC 1.12.2 怀旧服</a>
