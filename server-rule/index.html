@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务器规则 - Minecraft 1.12.2 怀旧服</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="new_theme.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="resources/title.png" as="image">
+    <link rel="preload" href="resources/huanly.webp" as="image">
+    <link rel="shortcut icon" href="resources/logo.png">
+</head>
+<body>
+    <!-- 加载动画 -->
+    <div id="loader">
+        <div class="loader-container">
+            <div class="pixel-loader">
+                <div class="pixel-block"></div>
+                <div class="pixel-block"></div>
+                <div class="pixel-block"></div>
+                <div class="pixel-block"></div>
+                <div class="pixel-block"></div>
+            </div>
+            <div class="loading-text">正在加载规则页面...</div>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo-container">
+                <img src="resources/logo.png" alt="Minecraft Logo" class="logo-img">
+                <span class="logo-text">建筑服</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="/" class="nav-item">首页</a>
+                <a href="resources/1.12.2建筑服.mrpack" class="nav-item btn-primary">下载整合包</a>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div class="mobile-menu">
+            <a href="/" class="mobile-nav-item">首页</a>
+            <a href="resources/1.12.2建筑服.mrpack" class="mobile-nav-item btn-primary">下载整合包</a>
+        </div>
+    </nav>
+
+    <!-- 方块装饰效果层 -->
+        <div class="block-decorations" id="blockDecorations"></div>
+
+        <!-- 规则内容 -->
+    <section class="rule-section">
+        <div class="container">
+            <div class="rule-content">
+
+                    <h1>一、服务器进入规则</h1>
+                    <div class="rule-item">
+                        <h3>1.账号要求</h3>
+                        <p>玩家需在服务器注册、登录，无需正版 Minecraft 账号。账号名称不得包含违法、色情、暴力等不良信息，且禁止使用盗号或生成器账号，每个IP最多1个账号。</p>
+                    </div>
+                    <div class="rule-item">
+                        <h3>2.入服同意规则</h3>
+                        <p>在服务器内时，默认同意服务器规则，且不会违反。</p>
+                    </div>
+                    <h1>二、世界与建造规则</h1>
+                    <div class="rule-item">
+                        <h3>建造作品要求</h3>
+                        <p>鼓励玩家在三个维度中建造积极向上、富有创意的作品，如建筑、红石机械等。作品不得包含暴力、恐怖、色情等不良元素。</p>
+                        <p>玩家可以自由建造，但需尊重他人作品，未经允许不得擅自修改或破坏他人在三个维度中的建造成果。</p>
+                    </div>
+                    <h1>三、安全与隐私规则</h1>
+                    <div class="rule-item">
+                        <h3>1.禁止攻击与破坏</h3>
+                        <p>禁止玩家对服务器或其他玩家进行任何形式的攻击，包括但不限于 DDoS 攻击、恶意炸服等。如发现，将立即Ban。</p>
+                        <p>严禁破坏他人建筑，一旦发现，将对破坏者给予严厉处罚，包括但不限于Ban、kick、当黑奴重建等。</p>
+                    </div>
+                    <div class="rule-item">
+                        <h3>2.隐私保护</h3>
+                        <p>服务器承诺保护玩家的个人信息和隐私，不会泄露玩家的账号信息、建造数据等。玩家在游戏过程中需注意自身隐私保护，不要随意向他人透露个人信息。</p>
+                    </div>
+                    <h1>四、服务器秩序与互动规则</h1>
+                    <div class="rule-item">
+                        <h3>1.尊重他人</h3>
+                        <p>玩家之间应相互尊重，禁止使用侮辱性语言、歧视性言论或进行人身攻击。如有违反，将给予警告或禁言处理。</p>
+                        <p>应当尊重其他玩家的创作和劳动成果，未经允许不得抄袭他人作品。</p>
+                    </div>
+                    <div class="rule-item">
+                        <h3>2.合作与交流</h3>
+                        <p>鼓励玩家之间进行合作建造和交流互动，共同创造一个活跃、友好的服务器环境。玩家可在服务器论坛或聊天频道中分享自己的作品和经验。</p>
+                    </div>
+                    <h1>五、违规处理与申诉规则</h1>
+                    <div class="rule-item">
+                        <h3>1.违规处理</h3>
+                        <p>服务器有 1 名服主和多名管理员，他们将对违规行为进行严格监管和处理。根据违规行为的性质和严重程度，给予相应的处罚，如警告、禁言、Ban等。</p>
+                        <p>处罚决定由管理团队单独一人集体讨论决定，确保公正、公平。</p>
+                    </div>
+                    <div class="rule-item">
+                        <h3>2.申诉机制</h3>
+                        <p>玩家如对处罚结果有异议，可找到管理员提交申诉申请。申诉时需提供详细的申诉理由和相关证据，管理团队将在不知道多少个工作日内对申诉进行处理，并将结果反馈给玩家。申诉期间，原处罚决定将不会不停止执行。</p>
+                    </div>
+                    <h2>以上规则是维护 Minecraft 1.12.2怀旧服良好秩序的重要保障，请所有玩家自觉遵守。服务器管理团队保留对规则的最终解释权和修改权。</h2>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- 底部信息 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="/resources/logo.png" alt="Minecraft Logo" class="logo-img">
+                    <span class="logo-text">建筑服</span>
+                </div>
+                <p class="server-description">纯净、稳定、友好的 Minecraft 1.12.2 怀旧服</p>
+                <div class="footer-links">
+                    <a href="/">🏠️ 主页</a>
+                    <a href="javascript:void(0);" onclick="showAlert()">📜 服务器规则</a>
+                    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=fYzHgCHAHXCNSSLscgxsQXBpp3eo1C-X&jump_from=webapi&authKey=LrcFJGQYtISOMDzVq8jgAeboE9FkqBK4zuE6zb9zRT0yT6NSQdYPDxrnU4DMYuQd"><alt="💬 玩家交流群" title="玩家交流群">💬 玩家交流群</a>
+                    <a href="javascript:void(0);" onclick="Notice()">📰 最新公告</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2025 华夫huanly 版权所有</p>
+                <p class="footer-disclaimer">本服务器与 Mojang AB、Minecraft 无关</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        function showAlert() {
+            alert("您已在此页面！");
+        }
+
+        function Notice() {
+            alert("压根就没公告，嘿嘿(=´ω`=)");
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            // 隐藏加载动画
+            setTimeout(function() {
+                const loader = document.getElementById('loader');
+                if (loader) {
+                    loader.classList.add('hidden');
+                    setTimeout(function() {
+                        loader.style.display = 'none';
+                    }, 500);
+                }
+            }, 1000);
+            
+            // 移动端菜单切换
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
+                });
+            }
+            
+            // 点击导航链接关闭移动端菜单
+            const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav-item');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (mobileMenu) {
+                        mobileMenu.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                    }
+                });
+            });
+            
+            // 创建方块装饰效果
+            function createBlockDecorations() {
+                const blockDecorations = document.getElementById('blockDecorations');
+                if (!blockDecorations) return;
+                
+                const blockTypes = [
+                    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjNTdhNzczIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiM1N2E3NzMiLz4KPC9zdmc+', // 草方块
+                    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjOGI1YTJiIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiM4YjVhMmIiLz4KPC9zdmc+', // 泥土
+                    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjOTY5Njk2IiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiM5Njk2OTYiLz4KPC9zdmc+', // 石头
+                    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjMzM5OWZmIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiM0ZDhkZmYiLz4KPC9zdmc+', // 水
+                    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjZjRlOWJjIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiNmNGU5YmMiLz4KPC9zdmc+', // 沙子
+                    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjMzQzNDM0IiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiMzNDM0MzQiLz4KPC9zdmc+'  // 基岩
+                ];
+                
+                for (let i = 0; i < 30; i++) {
+                    const block = document.createElement('div');
+                    block.className = 'block-decoration';
+                    block.style.backgroundImage = `url(${blockTypes[Math.floor(Math.random() * blockTypes.length)]})`;
+                    block.style.left = `${Math.random() * 100}%`;
+                    block.style.top = `${Math.random() * 100}%`;
+                    block.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                    block.style.animationDelay = `${Math.random() * 20}s`;
+                    
+                    // 随机大小
+                    const size = Math.floor(Math.random() * 12) + 12;
+                    block.style.width = `${size}px`;
+                    block.style.height = `${size}px`;
+                    
+                    blockDecorations.appendChild(block);
+                }
+            }
+            
+            createBlockDecorations();
+            
+            // 视差滚动效果
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.pageYOffset;
+                const parallaxElements = document.querySelectorAll('.hero-section::before');
+                
+                document.querySelectorAll('.hero-section')[0].style.backgroundPosition = `0px ${scrollPosition * 0.5}px`;
+            });
+            
+        
+        });
+    </script>
+</body>
+
+</html>

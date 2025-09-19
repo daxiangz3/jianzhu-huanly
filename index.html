@@ -3,700 +3,464 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft 1.12.2 怀旧服</title>
-    <link rel="stylesheet" href="common.css">
-    <style>
-        /* 页面特定样式 */
-        body {
-            margin: 0;
-            padding: 0;
-            color: var(--text-color);
-            image-rendering: pixelated;
-            min-height: 100vh;
-            position: relative;
-            padding-bottom: 100px;
-        }
-        
-        @font-face {
-            font-family: 'Minecraft';
-            src: url('https://fonts.cdnfonts.com/css/minecraft-4') format('woff2');
-            font-display: swap;
-        }
-        
-
-        
-        /* 导航栏 */
-        .navbar {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 4px solid var(--border-block);
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: bold;
-            text-shadow: 2px 2px 0 #000;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-            text-shadow: 1px 1px 0 #000;
-        }
-        
-        .nav-links a:hover {
-            background-color: var(--card-bg);
-            color: var(--accent-color);
-        }
-        
-        /* 页面头部 */
-        .header {
-            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/resources/title.png');
-            background-size: cover;
-            background-position: center;
-            padding: 4rem 2rem;
-            text-align: center;
-            position: relative;
-            border-bottom: 8px solid var(--border-block);
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 8px;
-            background-color: var(--grass-top);
-        }
-        
-        .header::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background-color: var(--grass-top);
-        }
-        
-        .header-decoration {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .header-decoration div {
-            width: 32px;
-            height: 32px;
-            background-color: var(--accent-color);
-            border: 3px solid #000;
-            box-shadow: 0 3px 0 #000;
-        }
-        
-        .header h1 {
-            font-size: 3rem;
-            margin: 0;
-            text-shadow: 4px 4px 0 #000;
-            color: var(--accent-color);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        /* 主要内容容器 */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .section-title {
-            color: var(--accent-color);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.5rem;
-            text-shadow: 2px 2px 0 #000;
-            margin-bottom: 1.5rem;
-        }
-        
-        /* 服务器信息 */
-        .server-info {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border: 3px solid var(--border-block);
-        }
-        
-        .server-stats {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .stat-item {
-            background-color: rgba(0,0,0,0.3);
-            padding: 0.8rem 1.2rem;
-            border-radius: 5px;
-            border: 2px solid var(--border-block);
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .stat-item::before {
-            content: '';
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            background-color: var(--accent-color);
-            border: 2px solid #000;
-        }
-        
-        /* 分隔线 */
-        .minecraft-divider {
-            border: none;
-            height: 8px;
-            background: linear-gradient(to right, transparent, var(--grass-top), var(--grass-side), transparent);
-            margin: 2rem 0;
-            position: relative;
-        }
-        
-        .minecraft-divider::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(to right, transparent, var(--border-block), transparent);
-        }
-        
-        /* 服务器特色 */
-        .server-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .feature-card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 1.5rem;
-            border: 3px solid var(--border-block);
-            transition: transform 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .feature-card h3 {
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
-            text-shadow: 1px 1px 0 #000;
-        }
-        
-        /* 管理员信息 */
-        .admin-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .nav-card {
-            background-color: var(--card-bg);
-            border-radius: 5px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 3px solid var(--border-block);
-            box-shadow: 0 5px 0 #2c3e50;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .nav-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-        }
-        
-        .nav-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 13px 0 #2c3e50;
-            border-color: var(--primary-color);
-        }
-        
-        .nav-card img {
-            border-radius: 50%;
-            border: 4px solid var(--primary-color);
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-            image-rendering: pixelated;
-            background-color: var(--stone);
-            padding: 4px;
-            box-shadow: 0 3px 0 rgba(0,0,0,0.3);
-        }
-        
-        .nav-card h3 {
-            color: var(--accent-color);
-            margin: 0.5rem 0;
-            text-shadow: 2px 2px 0 #000;
-        }
-        
-        .nav-card:hover img {
-            transform: scale(1.1) rotate(5deg);
-            border-color: var(--accent-color);
-        }
-        
-        .nav-card p {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin: 0.5rem 0;
-            color: var(--accent-color);
-        }
-        
-        /* 按钮样式 */
-        .minecraft-btn {
-            display: inline-block;
-            background-color: var(--grass-top);
-            color: #fff;
-            font-weight: bold;
-            padding: 12px 24px;
-            text-decoration: none;
-            border: 3px solid #000;
-            border-bottom-width: 6px;
-            border-radius: 3px;
-            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-            text-shadow: 2px 2px 0 #000;
-            box-shadow: 0 4px 0 var(--grass-side), 0 6px 0 #000;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-        
-        .minecraft-btn:hover {
-            transform: translateY(3px);
-            border-bottom-width: 3px;
-            box-shadow: 0 1px 0 var(--grass-side), 0 3px 0 #000;
-        }
-        
-        .minecraft-btn:active {
-            transform: translateY(5px);
-            border-bottom-width: 1px;
-            box-shadow: 0 0 0 var(--grass-side), 0 1px 0 #000;
-        }
-        
-        .nav-card a {
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-block;
-            margin-top: 0.5rem;
-            background-color: var(--wood);
-            color: var(--text-color);
-            padding: 0.5rem 1rem;
-            border-radius: 3px;
-            border: 2px solid var(--wood-dark);
-            box-shadow: 0 3px 0 var(--wood-dark);
-            font-size: 0.9em;
-        }
-        
-        .nav-card a:hover {
-            color: var(--accent-color);
-            transform: translateY(2px);
-            box-shadow: 0 1px 0 var(--wood-dark);
-        }
-
-        /* 整合包下载卡片 */
-        .download-card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 2rem;
-            border: 3px solid var(--border-block);
-            text-align: center;
-            margin: 2rem 0;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
-        .download-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-        }
-        .download-icon {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 1.5rem;
-            border: 4px solid var(--primary-color);
-            border-radius: 50%;
-            image-rendering: pixelated;
-            box-shadow: 0 3px 0 rgba(0,0,0,0.3);
-        }
-        .download-btn {
-            margin: 1.5rem 0;
-            background-color: var(--accent-color);
-            box-shadow: 0 4px 0 var(--accent-color-dark), 0 6px 0 #000;
-        }
-        .server-ip {
-            color: var(--text-color);
-            font-size: 1.1rem;
-            margin-top: 1rem;
-            text-shadow: 1px 1px 0 #000;
-        }
-        
-        /* 服务器截图展示 */
-        .screenshots {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .screenshot {
-            border-radius: 8px;
-            overflow: hidden;
-            border: 3px solid var(--border-block);
-            position: relative;
-            height: 200px;
-            background-color: var(--card-bg);
-        }
-        
-        .screenshot img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .screenshot:hover img {
-            transform: scale(1.1);
-        }
-        
-        .screenshot::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-        }
-        
-        /* 加入服务器部分 */
-        .join-section {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 2rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            border: 3px solid var(--border-block);
-        }
-        
-        .join-section h2 {
-            color: var(--accent-color);
-            margin-bottom: 1rem;
-        }
-        
-        .server-address {
-            background-color: rgba(0,0,0,0.3);
-            padding: 1rem;
-            border-radius: 5px;
-            font-family: monospace;
-            font-size: 1.2rem;
-            margin: 1rem 0;
-            border: 2px solid var(--border-block);
-            color: var(--accent-color);
-            display: inline-block;
-        }
-        
-        /* 页脚 */
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: var(--card-bg);
-            margin-top: 2rem;
-            border-top: 8px solid var(--border-block);
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-        }
-        
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background-color: var(--grass-top);
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 1rem 0;
-            flex-wrap: wrap;
-        }
-        
-        .footer-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        /* 留空区域 */
-        .empty-space {
-            height: 100px;
-            margin-top: 30px;
-        }
-        
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .container {
-                padding: 1rem;
-            }
-            
-            .admin-grid, .server-features {
-                grid-template-columns: 1fr;
-            }
-            
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-
-        }
-    </style>
+    <title>Minecraft 1.12.2 怀旧服 - 建筑服</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="new_theme.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="resources/title.png" as="image">
+    <link rel="preload" href="resources/huanly.webp" as="image">
+    <link rel="shortcut icon" href="resources/logo.png">
 </head>
 <body>
+    <!-- 加载动画 -->
+    <div id="loader">
+        <div class="loader-container">
+            <div class="pixel-loader">
+                <div class="pixel-block"></div>
+                <div class="pixel-block"></div>
+                <div class="pixel-block"></div>
+                <div class="pixel-block"></div>
+                <div class="pixel-block"></div>
+            </div>
+            <div class="loading-text">正在加载 Minecraft 世界...</div>
+        </div>
+    </div>
 
-    
     <!-- 导航栏 -->
     <nav class="navbar">
-        <a href="#" class="logo">MC 1.12.2 怀旧服</a>
-        <div class="nav-links">
-            <a href="#about">服务器简介</a>
-            <a href="#gallery">截图展示</a>
-            <a href="#staff">管理团队</a>
-            <a href="#download">下载</a>
+        <div class="container">
+            <div class="logo-container">
+                <img src="resources/logo.png" alt="Minecraft Logo" class="logo-img">
+                <span class="logo-text">建筑服</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#home" class="nav-item">首页</a>
+                <a href="#about" class="nav-item">服务器简介</a>
+                <a href="#gallery" class="nav-item">游戏截图</a>
+                <a href="#staff" class="nav-item">管理团队</a>
+                <a href="#download" class="nav-item btn-primary">下载整合包</a>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div class="mobile-menu">
+            <a href="#home" class="mobile-nav-item">首页</a>
+            <a href="#about" class="mobile-nav-item">服务器简介</a>
+            <a href="#gallery" class="mobile-nav-item">游戏截图</a>
+            <a href="#staff" class="mobile-nav-item">管理团队</a>
+            <a href="#download" class="mobile-nav-item btn-primary">下载整合包</a>
         </div>
     </nav>
-    
-    <!-- 页面头部 -->
-    <header class="header">
-        <div class="header-decoration">
-            <div></div>
-            <div></div>
+
+    <!-- 方块装饰效果层 -->
+    <div class="block-decorations" id="blockDecorations"></div>
+
+    <!-- 英雄区域 -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">欢迎来到 <span class="highlight">1.12.2建筑服</span></h1>
+                <p class="hero-subtitle">体验原汁原味的 Minecraft 1.12.2 版本，结交新的朋友，一起探索无限可能！</p>
+                <div class="hero-actions">
+                    <a href="#download" class="btn hero-btn">立即下载整合包</a>
+                    <a href="server-rule.html" class="btn hero-btn secondary">查看服务器规则</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">1.12.2</span>
+                        <span class="stat-label">游戏版本</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Forge</span>
+                        <span class="stat-label">Mod加载器</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">获取失败</span>
+                        <span class="stat-label">在线人数</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <h1>Minecraft 1.12.2 怀旧服</h1>
-    </header>
-    
-    <!-- 主要内容 -->
-    <div class="container">
-        <!-- 服务器简介 -->
-        <section id="about">
+        
+        <!-- 向下滚动指示器 -->
+        <div class="scroll-indicator">
+            <span>向下滚动探索</span>
+            <div class="scroll-icon"></div>
+        </div>
+    </section>
+
+    <!-- 服务器简介 -->
+    <section class="about-section" id="about">
+        <div class="container">
             <h2 class="section-title">服务器简介</h2>
-            <div class="server-info">
-                <p>欢迎加入Minecraft 1.12.2怀旧服，这里有最纯粹的游戏体验和友好的社区氛围。我们致力于还原经典版本的游戏乐趣，让大家重温 Minecraft 的美好回忆。</p>
-                
-                <div class="server-stats">
-                    <div class="stat-item">🟢 服务器状态: 在线</div>
-                    <div class="stat-item">👥 当前在线: ？/100</div>
-                    <div class="stat-item">🕒 开服时间: 2025年6月6日</div>
-                    <div class="stat-item">🎮 游戏版本: 1.12.2 forge</div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>建筑服是一个致力于提供纯净、稳定、友好的 Minecraft 1.12.2 建筑体验的服务器，于2025年6月6日开服。我们保留了 Minecraft 最经典版本的所有特色，同时添加了必要的服务器优化。</p>
+                    <p>在这里，你可以自由建造，探索无限世界，与其他玩家交流互动，参与各种有趣的活动。我们的管理团队致力于打造一个公平、和谐的游戏环境。</p>
+                    <p>无论你是新手还是老玩家，都能在建筑服找到属于自己的快乐。加入我们，一起创造属于我们的 Minecraft 故事！</p>
+                </div>
+                <div class="about-image">
+                    <img src="resources/logo.png" alt="服务器截图" class="about-img">
                 </div>
             </div>
-        </section>
-        
-        <hr class="minecraft-divider">
-        
-        <!-- 截图展示 -->
-        <section id="gallery">
-            <h2 class="section-title">截图展示</h2>
-            <div class="screenshots">
-                <div class="screenshot">
-                    <img src="resources/screenshots1.png" alt="玩家建筑">
-                </div>
-                <div class="screenshot">
-                    <img src="resources/screenshots2.png" alt="玩家建筑">
-                </div>
-                <div class="screenshot">
-                    <img src="resources/screenshots3.png" alt="玩家建筑">
-                </div>
-            </div>
-        </section>
-        
-        <hr class="minecraft-divider">
-        
-        <!-- 腐竹信息 -->
-        <section id="staff">
-            <h2 class="section-title">腐竹信息</h2>
-            <div class="admin-grid">
-                <div class="nav-card">
-                    <img src="/resources/huanly.webp" alt="华夫饼" />
-                    <div>
-                        <h3>华夫饼</h3>
-                        <h6>华夫huanly</h6>
-                        <p>服务器腐竹</p>
-                        <a href="https://space.bilibili.com/1728741267/">bilibili主页</a>
-                    </div>
-                </div>
-            </div>
-            
-            <h2 class="section-title" style="margin-top: 2rem;">管理员信息</h2>
-            <div class="admin-grid">
-                <div class="nav-card">
-                    <img src="/resources/seicat.webp" alt="SeicatNotCat" />
-                    <div>
-                        <h3>SeicatNotCat</h3>
-                        <p>管理员</p>
-                        <a href="https://space.bilibili.com/630284239">bilibili主页</a>
-                    </div>
-                </div>
-                <div class="nav-card">
-                    <img src="/resources/daxiangz3.jpg" alt="坚持梦想的象" />
-                    <div>
-                        <h3>坚持梦想的象</h3>
-                        <p>管理员</p>
-                        <a href="https://space.bilibili.com/1848005406">bilibili主页</a>
-                    </div>
-                </div>
-                <div class="nav-card">
-                    <img src="/resources/tianxie.webp" alt="天awa蝎" />
-                    <div>
-                        <h3>天awa蝎</h3>
-                        <p>管理员</p>
-                        <a href="https://space.bilibili.com/3493125018356416">bilibili主页</a>
-                    </div>
-                </div>
-                <div class="empty-space"></div>
-                <div class="empty-space"></div>
-            </div>
-            
-            <!-- 添加的留空区域 -->
-            
-        </section>
-        <section id="download">
-            <h2 class="section-title">整合包下载</h2>
-            <div class="download-card">
-                <img src="resources/huanly.webp" alt="整合包图标" class="download-icon">
-                <h3>怀旧服整合包下载</h3>
-                <p>点击下方按钮下载专用整合包，内含完整MOD</p>
-                <a href="resources/1.12.2华夫饼.mrpack" class="minecraft-btn download-btn">立即下载整合包</a>
-                <p class="server-ip">服务器IP：不知道</p>
-            </div>
-            <div class="empty-space"></div>
-        </section>
-
-
-    </div>
-    
-    <!-- 页脚 -->
-    <footer class="footer">
-        <p>© 2025 Minecraft 1.12.2 怀旧服 - 所有权利保留</p>
-        <div class="footer-links">
-            <a href="javascript:void(0);" onclick="showAlert()">🏠️ 主页</a>
-            <a href="server-rule.html">📜 服务器规则</a>
-            <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=fYzHgCHAHXCNSSLscgxsQXBpp3eo1C-X&jump_from=webapi&authKey=LrcFJGQYtISOMDzVq8jgAeboE9FkqBK4zuE6zb9zRT0yT6NSQdYPDxrnU4DMYuQd"><alt="💬 玩家交流群" title="玩家交流群">💬 玩家交流群</a>
-            <a href="javascript:void(0);" onclick="Notice()">📰 最新公告</a>
         </div>
-        <div class="footer-info">
-            <p>本服务器非官方服务器</p>
-            <p>Minecraft 及相关商标均为 Mojang Studios 的财产</p>
+    </section>
+
+    <!-- 游戏截图 -->
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <h2 class="section-title">游戏截图</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="resources/screenshots1.png" alt="游戏截图1" class="gallery-img">
+                    <div class="gallery-caption">市中心</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="resources/screenshots2.png" alt="游戏截图2" class="gallery-img">
+                    <div class="gallery-caption">冥古屋</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="resources/screenshots3.png" alt="游戏截图3" class="gallery-img">
+                    <div class="gallery-caption">大山村</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 管理团队 -->
+    <section class="staff-section" id="staff">
+        <div class="container">
+            <h2 class="section-title">管理团队</h2>
+            <div class="staff-grid">
+                <div class="staff-card">
+                    <div class="staff-avatar">
+                        <img src="resources/huanly.webp" alt="管理员头像">
+                    </div>
+                    <div class="staff-info">
+                        <h3>华夫饼</h3>
+                        <div class="staff-role">服主</div>
+                        <p>华夫饼华夫饼，好吃的华夫饼</p>
+                    </div>
+                </div>
+                <div class="staff-card">
+                    <div class="staff-avatar">
+                        <img src="resources/daxiangz3.webp" alt="管理员头像">
+                    </div>
+                    <div class="staff-info">
+                        <h3>坚持梦想的象</h3>
+                        <div class="staff-role">管理员</div>
+                        <p>一个天天摸鱼整赤石科技的屑</p>
+                    </div>
+                </div>
+                
+                <!-- 管理员 2 -->
+                <div class="staff-card">
+                    <div class="staff-avatar">
+                        <img src="resources/seicat.webp" alt="管理员头像">
+                    </div>
+                    <div class="staff-info">
+                        <h3>SeicatNotCat</h3>
+                        <div class="staff-role">管理员</div>
+                        <p>每日被朝？</p>
+                    </div>
+                </div>
+                
+                <!-- 管理员 3 -->
+                <div class="staff-card">
+                    <div class="staff-avatar">
+                        <img src="resources/tianxie.webp" alt="管理员头像">
+                    </div>
+                    <div class="staff-info">
+                        <h3>天awa蝎</h3>
+                        <div class="staff-role">管理员</div>
+                        <p>苔藓dog？</p>
+                    </div>
+                </div>
+                <div class="staff-card">
+                    <div class="staff-avatar">
+                        <img src="resources/awa.webp" alt="管理员头像">
+                    </div>
+                    <div class="staff-info">
+                        <h3>欸嘿得囊打呦(awa)</h3>
+                        <div class="staff-role">管理员</div>
+                        <p>欸嘿欸嘿</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 下载整合包 -->
+    <section class="download-section" id="download">
+        <div class="container">
+            <div class="download-content">
+                <div class="download-info">
+                    <h2 class="section-title">立即加入我们</h2>
+                    <p>下载建筑服专属整合包，一键安装所有必要的模组和资源包，轻松加入游戏！</p>
+                    <p>整合包包含必备的客户端模组和精美的服务器资源包，确保你获得最佳的游戏体验。</p>
+                    <div class="server-ip">
+                <span class="ip-label">服务器IP:</span>
+                <span class="ip-address">jianzhu.2m.pub</span>
+                <button class="copy-btn" onclick="copyIP()"><i class="far fa-copy"></i></button>
+            </div>
+                </div>
+                <div class="download-action">
+                    <a href="resources/1.12.2建筑服.mrpack" class="btn download-btn">
+                        <i class="fas fa-download download-icon"></i>
+                        立即下载整合包
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部信息 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="resources/logo.png" alt="Minecraft Logo" class="logo-img">
+                    <span class="logo-text">建筑服</span>
+                </div>
+                <p class="server-description">纯净、稳定、友好的 Minecraft 1.12.2 怀旧服</p>
+                <div class="footer-links">
+                    <a href="javascript:void(0);" onclick="showAlert()">🏠️ 主页</a>
+                    <a href="/server-rule/" >📜 服务器规则</a>
+                    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=fYzHgCHAHXCNSSLscgxsQXBpp3eo1C-X&jump_from=webapi&authKey=LrcFJGQYtISOMDzVq8jgAeboE9FkqBK4zuE6zb9zRT0yT6NSQdYPDxrnU4DMYuQd"><alt="💬 玩家交流群" title="玩家交流群">💬 玩家交流群</a>
+                    <a href="javascript:void(0);" onclick="Notice()">📰 最新公告</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2025 华夫huanly 版权所有</p>
+                <p class="footer-disclaimer">本服务器与 Mojang AB、Minecraft 无关</p>
+            </div>
         </div>
     </footer>
-    
-    
-    <script>
 
-        // JavaScript代码
-        function showAlert() {
+    <!-- 图片预览弹窗 -->
+    <div class="gallery-preview" id="galleryPreview">
+        <button class="close-preview" id="closePreview">&times;</button>
+        <img src="" alt="预览图片" class="preview-img" id="previewImg">
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+                function showAlert() {
             alert("您已在此页面！");
         }
 
         function Notice() {
             alert("压根就没公告，嘿嘿(=´ω`=)");
         }
-
-        // 页面加载完成后隐藏加载动画
-        window.addEventListener('load', function() {
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 隐藏加载动画
             setTimeout(function() {
-                const loadingOverlay = document.getElementById('loadingOverlay');
-                loadingOverlay.style.opacity = '0';
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
                 setTimeout(function() {
-                    loadingOverlay.style.display = 'none';
+                    loader.style.display = 'none';
                 }, 500);
             }, 1500);
-        });
-        
-        // 平滑滚动到锚点
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 60,
-                        behavior: 'smooth'
-                    });
+            
+            // 导航栏滚动效果
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
                 }
             });
+            
+            // 移动菜单切换
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenuBtn.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+            
+            mobileNavItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    mobileMenuBtn.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+            
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // 图片预览功能
+            const galleryImages = document.querySelectorAll('.gallery-img');
+            const galleryPreview = document.getElementById('galleryPreview');
+            const previewImg = document.getElementById('previewImg');
+            const closePreview = document.getElementById('closePreview');
+            
+            galleryImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    previewImg.src = this.src;
+                    galleryPreview.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            closePreview.addEventListener('click', function() {
+                galleryPreview.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            galleryPreview.addEventListener('click', function(e) {
+                if (e.target === galleryPreview) {
+                    galleryPreview.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // 添加方块装饰效果
+            const blockDecorations = document.getElementById('blockDecorations');
+            const blockTypes = [
+                'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjNTdhNzczIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiM1N2E3NzMiLz4KPC9zdmc+', // 草方块
+                'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjOGI1YTJiIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiM4YjVhMmIiLz4KPC9zdmc+', // 泥土
+                'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjOTY5Njk2IiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiM5Njk2OTYiLz4KPC9zdmc+', // 石头
+                'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjMzM5OWZmIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiM0ZDhkZmYiLz4KPC9zdmc+', // 水
+                'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjZjRlOWJjIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiNmNGU5YmMiLz4KPC9zdmc+', // 沙子
+                'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjMzQzNDM0IiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiMzNDM0MzQiLz4KPC9zdmc+'  // 基岩
+            ];
+            
+            function createBlockDecorations() {
+                for (let i = 0; i < 15; i++) {
+                    const block = document.createElement('div');
+                    block.classList.add('decor-block');
+                    
+                    // 随机选择方块类型
+                    const blockType = blockTypes[Math.floor(Math.random() * blockTypes.length)];
+                    block.style.backgroundImage = `url(${blockType})`;
+                    
+                    // 随机位置
+                    block.style.left = `${Math.random() * 100}%`;
+                    block.style.top = `${Math.random() * 100}%`;
+                    
+                    // 随机动画延迟
+                    block.style.animationDelay = `${Math.random() * 20}s`;
+                    
+                    // 随机大小
+                    const size = Math.floor(Math.random() * 12) + 12;
+                    block.style.width = `${size}px`;
+                    block.style.height = `${size}px`;
+                    
+                    blockDecorations.appendChild(block);
+                }
+            }
+            
+            createBlockDecorations();
+            
+            // 视差滚动效果
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.pageYOffset;
+                const parallaxElements = document.querySelectorAll('.hero-section::before');
+                
+                document.querySelectorAll('.hero-section')[0].style.backgroundPosition = `0px ${scrollPosition * 0.5}px`;
+            });
+            
+            // 更新在线人数功能
+            function updatePlayerCount() {
+                const serverIp = 'play.simpfun.cn:15778';
+                const apiUrl = `https://mcapi.us/server/status?ip=${serverIp}`;
+                
+                fetch(apiUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('API响应错误');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const playerCountElement = document.querySelector('.stat-item:nth-child(3) .stat-number');
+                        if (playerCountElement) {
+                            if (data.online) {
+                                playerCountElement.textContent = `${data.players.now}/${data.players.max}`;
+                                playerCountElement.style.color = 'var(--accent-color)';
+                            } else {
+                                playerCountElement.textContent = '离线';
+                                playerCountElement.style.color = '#ff5252';
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('获取在线人数失败:', error);
+                        const playerCountElement = document.querySelector('.stat-item:nth-child(3) .stat-number');
+                        if (playerCountElement) {
+                            playerCountElement.textContent = '获取失败';
+                        }
+                    });
+            }
+            
+            // 页面加载完成后更新在线人数
+            updatePlayerCount();
+            
+            // 每30秒自动更新一次在线人数
+            setInterval(updatePlayerCount, 30000);
+            
+            // 复制IP功能
+            window.copyIP = function() {
+                const ipAddress = document.querySelector('.ip-address').textContent;
+                navigator.clipboard.writeText(ipAddress).then(function() {
+                    // 创建临时提示
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'copy-tooltip';
+                    tooltip.textContent = 'IP已复制到剪贴板！';
+                    tooltip.style.cssText = `
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background-color: var(--accent-color);
+                        color: var(--bg-color);
+                        padding: 10px 20px;
+                        border-radius: 4px;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        z-index: 3000;
+                        pointer-events: none;
+                        animation: fadeOut 2s ease-out forwards;
+                    `;
+                    document.body.appendChild(tooltip);
+                    
+                    // 2秒后移除提示
+                    setTimeout(function() {
+                        document.body.removeChild(tooltip);
+                    }, 2000);
+                }).catch(function(err) {
+                    console.error('无法复制IP地址: ', err);
+                });
+            };
         });
     </script>
 </body>
