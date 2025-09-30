@@ -21,7 +21,7 @@
 ## 🎮 如何加入
 
 1. 下载 Minecraft 1.12.2 版本客户端
-2. 添加服务器 IP（见[网站主页](/index.html)。）
+2. 添加服务器 IP（见[网站主页](https://daxiangz3.github.io/jianzhu-huanly/)。）
 3. 加入服务器，开始你的冒险之旅！
 
 ## 👥 管理团队
@@ -77,7 +77,7 @@
 5. 禁止传播不良信息
 6. 请合理利用服务器资源
 
-详细规则请查看[服务器规则页面](server-rule/index.html)。
+详细规则请查看[服务器规则页面](https://daxiangz3.github.io/jianzhu-huanly/server-rule/)。
 
 ## 📷 游戏截图
 
@@ -85,11 +85,11 @@
 ![冥古屋](resources/screenshots2.png)
 ![大山村](resources/screenshots3.png)
 
-查看更多截图，请访问[照片墙](photos/index.html)。
+查看更多截图，请访问[照片墙](https://daxiangz3.github.io/jianzhu-huanly/photos/)。
 
 ## 📢 最新公告
 
-请关注我们的[最新公告](notice/index.html)，获取服务器的最新动态和活动信息。
+请关注我们的[最新公告](https://daxiangz3.github.io/jianzhu-huanly/notice/)，获取服务器的最新动态和活动信息。
 
 ## 💬 联系我们
 
