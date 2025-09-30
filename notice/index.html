@@ -220,7 +220,7 @@
 
     <!-- 回到顶部按钮 -->
     <button class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
+        <i class="fas fa-arrow-up">↑</i>
     </button>
 
     <!-- JavaScript -->
@@ -433,7 +433,7 @@
                         this.innerHTML = '<i class="fas fa-thumbs-up"></i> 已点赞';
                         this.classList.add('active');
                     } else {
-                        this.innerHTML = '<i class="far fa-thumbs-up"></i> 👍 点赞';
+                        this.innerHTML = '<i class="far fa-thumbs-up"></i> 点赞';
                         this.classList.remove('active');
                     }
                 });
@@ -691,7 +691,6 @@
             margin-top: 30px;
             padding-top: 20px;
             border-top: 1px solid var(--border-color);
-            animation: highlight 2s ease-in-out infinite;
         }
         
         @keyframes highlight {
