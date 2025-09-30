@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公告中心 - Minecraft 1.12.2 怀旧服 - 长生服</title>
+    <link rel="stylesheet" href="/new_theme.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="/resources/title.png" as="image">
+    <link rel="preload" href="/resources/huanly.webp" as="image">
+    <link rel="shortcut icon" href="/resources/logo.png">
+</head>
+<body>
+    <!-- 加载动画 -->
+    <div id="loader">
+        <div class="loader-container">
+            <div class="pixel-loader">
+                <div class="pixel-block"></div>
+                <div class="pixel-block"></div>
+                <div class="pixel-block"></div>
+                <div class="pixel-block"></div>
+                <div class="pixel-block"></div>
+            </div>
+            <div class="loading-text">正在加载公告页面...</div>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo-container">
+                <img src="/resources/logo.png" alt="Minecraft Logo" class="logo-img">
+                <span class="logo-text">长生服</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="/jianzhu-huanly/" class="nav-item">首页</a>
+                <a href="/jianzhu-huanly/#download" class="nav-item btn-primary">下载整合包</a>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div class="mobile-menu">
+            <a href="/jianzhu-huanly/" class="mobile-nav-item">首页</a>
+            <a href="/jianzhu-huanly/#download" class="mobile-nav-item btn-primary">下载整合包</a>
+        </div>
+    </nav>
+
+    <!-- 方块装饰效果层 -->
+    <div class="block-decorations" id="blockDecorations"></div>
+
+    <!-- 英雄区域 -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">公告中心</h1>
+                <p class="hero-subtitle">了解长生服的最新动态和重要通知</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 公告列表 -->
+    <section class="notice-section">
+        <div class="container">
+            <!-- 置顶公告 -->
+            <div class="notice-card featured">
+                <div class="notice-header">
+                    <div class="notice-author">
+                        <img src="/resources/huanly.webp" alt="华夫饼头像" class="author-avatar">
+                        <div class="author-info">
+                            <h3 class="author-name">华夫饼</h3>
+                            <p class="notice-time">2025年 9月13日 00:07</p>
+                        </div>
+                    </div>
+                    <div class="notice-tag">
+                        <span class="tag pinned">置顶</span>
+                    </div>
+                </div>
+                <div class="notice-content">
+                    <p class="notice-title-text">我们不会升级游戏版本，至少长期如此！</p>
+                    <div class="notice-body">
+                        <p>三年时光，我们经历了无数曲折。从网易到云服，从forge到mohist，我们从未放弃。为了保护存档数据，即使一众插件已经放弃了1.12.2，我们也会一直回滚，直到能使用的版本。</p>
+                        <p>为什么？我们为什么要坚守1.12.2？我们对所有玩家都给予了最开放的权限，可以自由使用MCedit，使用指令，自行添加模组等等。但是弊端也随之显现，想要提升存档版本，难上加难。</p>
+                        <p>1.12.2，是个特殊的版本，无数模组在此诞生，也在此停更。我们留守1.12.2，并非不愿意更新，而是对过去的怀念，怀念随心所欲建造的时刻，怀念与好友的一同欢乐……</p>
+                        <p>诚然，新版本的MC有更多的建筑方块，也有更好的模组和内容。但是，我们真的需要吗？即使现在的版本只有1.12.2，但它能满足大多数玩家的配置需求，包括手机。我们拿出了最低的配置要求，在此基础上，将新版本移植的模组添加进来，使得旧版本也能有新版本的方块和乐趣。</p>
+                        <p>事实上，建筑玩家需要的，并不是一个不断灌输新版建筑方块，只能老老实实搞建筑的服务器。</p>
+                        <p>而是，一个能自由建造，开放思想，治愈心灵的世界！</p>
+                        <p>当然，如果高版本能满足这些，那当然更好。只是，这已经是一个完整的、成型的世界了。</p>
+                        <p>所以，高版本，有那么重要吗？</p>
+                        <p>下图为服务器建筑一览：</p>
+                        <p>图一：服务器铁路运营图</p>
+                        <p>图二：英灵殿（由SeicatNotcat建造）</p>
+                        <p>图三：Phigros角色鸠（由MC_cave_game建造）</p>
+                        <p>图四：四面山（由daxiangz3建造）</p>
+                        <p>图五：黄岭周边</p>
+                        <p>图六：PVP小游戏场地（四人合建）</p>
+                        <p>图七：绘展中心地图画</p>
+                        <p>图八：老城区出生点</p>
+                        <p>图九：老城区及其周边地图</p>
+                    </div>
+                    <div class="notice-divider">
+                        <hr>
+                    </div>
+                    <div class="notice-image-gallery">
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <img src="resources/huanly1.jfif" alt="服务器建筑图1" class="gallery-img">
+                                <div class="gallery-caption">图一：服务器铁路运营图</div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="resources/huanly2.jfif" alt="服务器建筑图2" class="gallery-img">
+                                <div class="gallery-caption">图二：英灵殿（由SeicatNotcat建造）</div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="resources/huanly3.jfif" alt="服务器建筑图3" class="gallery-img">
+                                <div class="gallery-caption">图三：Phigros角色鸠（由MC_cave_game建造）</div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="resources/huanly4.jfif" alt="服务器建筑图4" class="gallery-img">
+                                <div class="gallery-caption">图四：四面山（由daxiangz3建造）</div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="resources/huanly5.jfif" alt="服务器建筑图5" class="gallery-img">
+                                <div class="gallery-caption">图五：黄岭周边</div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="resources/huanly6.jfif" alt="服务器建筑图6" class="gallery-img">
+                                <div class="gallery-caption">图六：PVP小游戏场地（四人合建）</div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="resources/huanly7.jfif" alt="服务器建筑图7" class="gallery-img">
+                                <div class="gallery-caption">图七：绘展中心地图画</div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="resources/huanly8.jfif" alt="服务器建筑图8" class="gallery-img">
+                                <div class="gallery-caption">图八：老城区出生点</div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="resources/huanly9.jfif" alt="服务器建筑图9" class="gallery-img">
+                                <div class="gallery-caption">图九：老城区及其周边地图</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notice-conclusion">
+                        <p><strong>我们不会升级游戏版本，至少长期如此！</strong></p>
+                    </div>
+                </div>
+                <div class="notice-footer">
+                    <div class="notice-actions">
+                        <button class="action-btn like-btn"><i class="far fa-thumbs-up"></i> 点赞</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 最新公告 -->
+            <div class="notice-card">
+                <div class="notice-header">
+                    <div class="notice-author">
+                        <img src="/resources/daxiangz3.webp" alt="坚持梦想的象头像" class="author-avatar">
+                        <div class="author-info">
+                            <h3 class="author-name">坚持梦想的象</h3>
+                            <p class="notice-time">2025年10月1号 00:23</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="notice-content">
+                    <div class="notice-body">
+                        <p>长生服第一次公测即将到来，期待网友们的想象力！欢迎来建造好看的建筑，只要不违反规定，一切几乎都不是问题。</p>
+                    </div>
+                </div>
+                <div class="notice-footer">
+                    <div class="notice-actions">
+                        <button class="action-btn like-btn"><i class="far fa-thumbs-up"></i> 点赞</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部信息 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../resources/logo.png" alt="Minecraft Logo" class="logo-img">
+                    <span class="logo-text">长生服</span>
+                </div>
+                <p class="server-description">纯净、稳定、友好的 Minecraft 1.12.2 怀旧服</p>
+                <div class="footer-links">
+                    <a href="/jianzhu-huanly/">🏠️ 主页</a>
+                    <a href="/jianzhu-huanly/server-rule/" >📜 服务器规则</a>
+                    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=fYzHgCHAHXCNSSLscgxsQXBpp3eo1C-X&jump_from=webapi&authKey=LrcFJGQYtISOMDzVq8jgAeboE9FkqBK4zuE6zb9zRT0yT6NSQdYPDxrnU4DMYuQd"><alt="💬 玩家交流群" title="玩家交流群">💬 玩家交流群</a>
+                    <a href="javascript:void(0);" onclick="Notice()">📰 最新公告</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2025 华夫huanly 版权所有</p>
+                <p class="footer-disclaimer">本服务器与 Mojang AB、Minecraft 无关</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 图片预览弹窗 -->
+    <div class="gallery-preview" id="galleryPreview">
+        <button class="close-preview" id="closePreview">&times;</button>
+        <img src="" alt="预览图片" class="preview-img" id="previewImg">
+        <div class="preview-caption" id="previewCaption"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function Notice() {
+            alert("您已在此页面！");
+        }
+        
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 隐藏加载动画
+            setTimeout(function() {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(function() {
+                    loader.style.display = 'none';
+                }, 500);
+            }, 1500);
+            
+            // 导航栏滚动效果
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            
+            // 移动菜单切换
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenuBtn.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+            
+            mobileNavItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    mobileMenuBtn.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+            
+            // 添加方块装饰效果
+            const blockDecorations = document.getElementById('blockDecorations');
+            const blockTypes = [
+                'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjNTdhNzczIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiM1N2E3NzMiLz4KPC9zdmc+', // 草方块
+                'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjOGI1YTJiIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiM4YjVhMmIiLz4KPC9zdmc+', // 泥土
+                'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjOTY5Njk2IiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiM5Njk2OTYiLz4KPC9zdmc+', // 石头
+                'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjMzM5OWZmIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiM0ZDhkZmYiLz4KPC9zdmc+', // 水
+                'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjZjRlOWJjIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiNmNGU5YmMiLz4KPC9zdmc+', // 沙子
+                'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgc3Ryb2tlPSIjMzQzNDM0IiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9IiMzNDM0MzQiLz4KPC9zdmc+'  // 基岩
+            ];
+            
+            function createBlockDecorations() {
+                for (let i = 0; i < 15; i++) {
+                    const block = document.createElement('div');
+                    block.classList.add('decor-block');
+                    
+                    // 随机选择方块类型
+                    const blockType = blockTypes[Math.floor(Math.random() * blockTypes.length)];
+                    block.style.backgroundImage = `url(${blockType})`;
+                    
+                    // 随机位置
+                    block.style.left = `${Math.random() * 100}%`;
+                    block.style.top = `${Math.random() * 100}%`;
+                    
+                    // 随机动画延迟
+                    block.style.animationDelay = `${Math.random() * 20}s`;
+                    
+                    // 随机大小
+                    const size = Math.floor(Math.random() * 12) + 12;
+                    block.style.width = `${size}px`;
+                    block.style.height = `${size}px`;
+                    
+                    blockDecorations.appendChild(block);
+                }
+            }
+            
+            createBlockDecorations();
+            
+            // 图片预览功能
+            const galleryImages = document.querySelectorAll('.gallery-img');
+            const galleryPreview = document.getElementById('galleryPreview');
+            const previewImg = document.getElementById('previewImg');
+            const previewCaption = document.getElementById('previewCaption');
+            const closePreview = document.getElementById('closePreview');
+            
+            galleryImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    previewImg.src = this.src;
+                    // 获取图片标题
+                    const caption = this.nextElementSibling ? this.nextElementSibling.textContent : this.alt;
+                    previewCaption.textContent = caption;
+                    
+                    galleryPreview.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            closePreview.addEventListener('click', function() {
+                galleryPreview.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            galleryPreview.addEventListener('click', function(e) {
+                if (e.target === galleryPreview) {
+                    galleryPreview.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // 点赞按钮交互
+            const likeButtons = document.querySelectorAll('.like-btn');
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.classList.toggle('liked');
+                    if (this.classList.contains('liked')) {
+                        this.innerHTML = '<i class="fas fa-thumbs-up"></i> 已点赞';
+                        this.classList.add('active');
+                    } else {
+                        this.innerHTML = '<i class="far fa-thumbs-up"></i> 点赞';
+                        this.classList.remove('active');
+                    }
+                });
+            });
+            
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <style>
+        /* 公告页面专属样式 */
+        .notice-section {
+            padding: 80px 0;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .notice-card {
+            background-color: var(--card-bg);
+            border: 3px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 40px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .notice-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .notice-card.featured {
+            border-color: var(--accent-color);
+            background-color: rgba(42, 42, 42, 0.98);
+        }
+        
+        .notice-card.featured::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 100%;
+            background-color: var(--accent-color);
+        }
+        
+        .notice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .notice-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-color);
+            background-color: var(--bg-color);
+            image-rendering: pixelated;
+        }
+        
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .author-name {
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+        
+        .notice-time {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .notice-tag {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .tag {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .tag.pinned {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+        }
+        
+        .notice-content {
+            margin-bottom: 20px;
+        }
+        
+        .notice-title-text {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+        
+        .notice-body {
+            margin-bottom: 20px;
+        }
+        
+        .notice-body p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .notice-divider {
+            margin: 30px 0;
+        }
+        
+        .notice-divider hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+        }
+        
+        .notice-image-gallery {
+            margin-bottom: 30px;
+        }
+        
+        .notice-image-gallery h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--border-color);
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+            border-color: var(--accent-color);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: var(--transition);
+            image-rendering: pixelated;
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            color: var(--text-color);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .notice-conclusion {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .notice-conclusion p {
+            font-size: 1.2rem;
+            text-align: center;
+            color: var(--accent-color);
+        }
+        
+        .notice-footer {
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .notice-actions {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: var(--bg-secondary);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+        
+        .action-btn:hover {
+            background-color: var(--primary-color);
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+        
+        .action-btn.active,
+        .action-btn.liked {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border-color: var(--accent-color);
+        }
+        
+        .load-more-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .load-more-btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+        }
+        
+        .load-more-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .load-more-btn.disabled:hover {
+            transform: none;
+            border-bottom-width: 6px;
+        }
+        
+        /* 图片预览弹窗 */
+        .gallery-preview {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .gallery-preview.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .close-preview {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+        }
+        
+        .close-preview:hover {
+            background-color: var(--text-color);
+            transform: rotate(90deg);
+        }
+        
+        .preview-img {
+            max-width: 90%;
+            max-height: 75vh;
+            object-fit: contain;
+            border: 5px solid var(--border-color);
+            border-radius: 8px;
+            transition: var(--transition);
+            image-rendering: pixelated;
+        }
+        
+        .preview-caption {
+            margin-top: 20px;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 80%;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+            
+            .notice-card {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-img {
+                height: 250px;
+            }
+            
+            .notice-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .notice-actions {
+                flex-wrap: wrap;
+            }
+            
+            .action-btn {
+                flex: 1;
+                min-width: 120px;
+                justify-content: center;
+            }
+            
+            .close-preview {
+                top: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .notice-card {
+                padding: 20px;
+            }
+            
+            .author-avatar {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .author-name {
+                font-size: 1.2rem;
+            }
+            
+            .notice-title-text {
+                font-size: 1.4rem;
+            }
+            
+            .notice-body p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</body>
+</html>
