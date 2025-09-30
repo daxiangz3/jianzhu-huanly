@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>公告中心 - Minecraft 1.12.2 怀旧服 - 长生服</title>
-    <link rel="stylesheet" href="/new_theme.css">
+    <link rel="stylesheet" href="new_theme.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- 预加载关键资源 -->
-    <link rel="preload" href="/resources/title.png" as="image">
-    <link rel="preload" href="/resources/huanly.webp" as="image">
-    <link rel="shortcut icon" href="/resources/logo.png">
+    <link rel="preload" href="resources/title.png" as="image">
+    <link rel="preload" href="resources/huanly.webp" as="image">
+    <link rel="shortcut icon" href="resources/logo.png">
 </head>
 <body>
     <!-- 加载动画 -->
@@ -74,7 +74,7 @@
             <div class="notice-card featured">
                 <div class="notice-header">
                     <div class="notice-author">
-                        <img src="/resources/huanly.webp" alt="华夫饼头像" class="author-avatar">
+                        <img src="resources/huanly.webp" alt="华夫饼头像" class="author-avatar">
                         <div class="author-info">
                             <h3 class="author-name">华夫饼</h3>
                             <p class="notice-time">2025年 9月13日 00:07</p>
@@ -164,7 +164,7 @@
             <div class="notice-card">
                 <div class="notice-header">
                     <div class="notice-author">
-                        <img src="/resources/daxiangz3.webp" alt="坚持梦想的象头像" class="author-avatar">
+                        <img src="resources/daxiangz3.webp" alt="坚持梦想的象头像" class="author-avatar">
                         <div class="author-info">
                             <h3 class="author-name">坚持梦想的象</h3>
                             <p class="notice-time">2025年10月1号 00:23</p>
@@ -190,7 +190,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="../resources/logo.png" alt="Minecraft Logo" class="logo-img">
+                    <img src="resources/logo.png" alt="Minecraft Logo" class="logo-img">
                     <span class="logo-text">长生服</span>
                 </div>
                 <p class="server-description">纯净、稳定、友好的 Minecraft 1.12.2 怀旧服</p>
@@ -211,9 +211,17 @@
     <!-- 图片预览弹窗 -->
     <div class="gallery-preview" id="galleryPreview">
         <button class="close-preview" id="closePreview">&times;</button>
+        <button class="nav-preview-btn prev-btn" id="prevPreview">&lt;</button>
+        <button class="nav-preview-btn next-btn" id="nextPreview">&gt;</button>
+        <div class="preview-counter" id="previewCounter"></div>
         <img src="" alt="预览图片" class="preview-img" id="previewImg">
         <div class="preview-caption" id="previewCaption"></div>
     </div>
+
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <!-- JavaScript -->
     <script>
@@ -240,6 +248,23 @@
                 } else {
                     navbar.classList.remove('scrolled');
                 }
+                
+                // 控制回到顶部按钮显示/隐藏
+                const backToTopBtn = document.getElementById('backToTop');
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.add('active');
+                } else {
+                    backToTopBtn.classList.remove('active');
+                }
+            });
+            
+            // 回到顶部功能
+            const backToTopBtn = document.getElementById('backToTop');
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             });
             
             // 移动菜单切换
@@ -299,25 +324,72 @@
             
             createBlockDecorations();
             
-            // 图片预览功能
+            // 图片预览功能增强版
             const galleryImages = document.querySelectorAll('.gallery-img');
             const galleryPreview = document.getElementById('galleryPreview');
             const previewImg = document.getElementById('previewImg');
             const previewCaption = document.getElementById('previewCaption');
+            const previewCounter = document.getElementById('previewCounter');
             const closePreview = document.getElementById('closePreview');
+            const prevPreview = document.getElementById('prevPreview');
+            const nextPreview = document.getElementById('nextPreview');
+            let currentImageIndex = 0;
             
-            galleryImages.forEach(img => {
+            // 点击图片打开预览
+            galleryImages.forEach((img, index) => {
                 img.addEventListener('click', function() {
-                    previewImg.src = this.src;
-                    // 获取图片标题
-                    const caption = this.nextElementSibling ? this.nextElementSibling.textContent : this.alt;
-                    previewCaption.textContent = caption;
-                    
+                    currentImageIndex = index;
+                    updatePreview(currentImageIndex);
                     galleryPreview.classList.add('active');
                     document.body.style.overflow = 'hidden';
                 });
             });
             
+            // 更新预览图片
+            function updatePreview(index) {
+                if (galleryImages[index]) {
+                    previewImg.src = galleryImages[index].src;
+                    // 获取图片标题
+                    const caption = galleryImages[index].nextElementSibling ? 
+                        galleryImages[index].nextElementSibling.textContent : 
+                        galleryImages[index].alt;
+                    previewCaption.textContent = caption;
+                    
+                    // 更新计数器
+                    previewCounter.textContent = `${index + 1} / ${galleryImages.length}`;
+                }
+            }
+            
+            // 上一张/下一张功能
+            prevPreview.addEventListener('click', function(e) {
+                e.stopPropagation();
+                currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+                updatePreview(currentImageIndex);
+            });
+            
+            nextPreview.addEventListener('click', function(e) {
+                e.stopPropagation();
+                currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+                updatePreview(currentImageIndex);
+            });
+            
+            // 键盘导航
+            document.addEventListener('keydown', function(e) {
+                if (galleryPreview.classList.contains('active')) {
+                    if (e.key === 'ArrowLeft') {
+                        currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+                        updatePreview(currentImageIndex);
+                    } else if (e.key === 'ArrowRight') {
+                        currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+                        updatePreview(currentImageIndex);
+                    } else if (e.key === 'Escape') {
+                        galleryPreview.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                }
+            });
+            
+            // 关闭预览
             closePreview.addEventListener('click', function() {
                 galleryPreview.classList.remove('active');
                 document.body.style.overflow = '';
@@ -330,16 +402,38 @@
                 }
             });
             
-            // 点赞按钮交互
+            // 点赞按钮增强功能
             const likeButtons = document.querySelectorAll('.like-btn');
-            likeButtons.forEach(button => {
+            
+            // 初始化点赞状态
+            function initLikeStates() {
+                likeButtons.forEach((button, index) => {
+                    const savedLikeState = localStorage.getItem(`notice_like_${index}`);
+                    if (savedLikeState === 'true') {
+                        button.classList.add('liked');
+                        button.innerHTML = '<i class="fas fa-thumbs-up"></i> 已点赞';
+                        button.classList.add('active');
+                    }
+                });
+            }
+            
+            // 初始化点赞状态
+            initLikeStates();
+            
+            // 点赞交互
+            likeButtons.forEach((button, index) => {
                 button.addEventListener('click', function() {
                     this.classList.toggle('liked');
-                    if (this.classList.contains('liked')) {
+                    const isLiked = this.classList.contains('liked');
+                    
+                    // 保存点赞状态到本地存储
+                    localStorage.setItem(`notice_like_${index}`, isLiked);
+                    
+                    if (isLiked) {
                         this.innerHTML = '<i class="fas fa-thumbs-up"></i> 已点赞';
                         this.classList.add('active');
                     } else {
-                        this.innerHTML = '<i class="far fa-thumbs-up"></i> 点赞';
+                        this.innerHTML = '<i class="far fa-thumbs-up"></i> 👍 点赞';
                         this.classList.remove('active');
                     }
                 });
@@ -380,6 +474,24 @@
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* 淡入上移动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 为第二个公告卡片设置延迟动画 */
+        .notice-card:nth-child(2) {
+            animation-delay: 0.3s;
         }
         
         .notice-card:hover {
@@ -423,6 +535,11 @@
             border: 3px solid var(--accent-color);
             background-color: var(--bg-color);
             image-rendering: pixelated;
+            transition: transform 0.3s ease;
+        }
+        
+        .author-avatar:hover {
+            transform: rotate(5deg) scale(1.1);
         }
         
         .author-info {
@@ -434,6 +551,7 @@
             font-size: 1.4rem;
             color: var(--accent-color);
             margin-bottom: 5px;
+            font-weight: 700;
         }
         
         .notice-time {
@@ -457,6 +575,19 @@
         .tag.pinned {
             background-color: var(--accent-color);
             color: var(--bg-color);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
+            }
         }
         
         .notice-content {
@@ -468,6 +599,10 @@
             font-weight: 600;
             margin-bottom: 20px;
             color: var(--text-color);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            display: inline-block;
         }
         
         .notice-body {
@@ -478,6 +613,8 @@
             margin-bottom: 15px;
             line-height: 1.8;
             font-size: 1.1rem;
+            text-align: justify;
+            text-indent: 2em;
         }
         
         .notice-divider {
@@ -514,11 +651,13 @@
             transition: var(--transition);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             border: 2px solid var(--border-color);
+            transform-origin: center;
         }
         
         .gallery-item:hover {
             transform: scale(1.03);
             border-color: var(--accent-color);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
         }
         
         .gallery-img {
@@ -540,12 +679,28 @@
             color: var(--text-color);
             font-size: 0.9rem;
             text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
         }
         
         .notice-conclusion {
             margin-top: 30px;
             padding-top: 20px;
             border-top: 1px solid var(--border-color);
+            animation: highlight 2s ease-in-out infinite;
+        }
+        
+        @keyframes highlight {
+            0%, 100% {
+                background-color: rgba(255, 107, 107, 0.1);
+            }
+            50% {
+                background-color: rgba(255, 107, 107, 0.05);
+            }
         }
         
         .notice-conclusion p {
@@ -576,6 +731,23 @@
             cursor: pointer;
             transition: var(--transition);
             font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .action-btn:hover::before {
+            left: 100%;
         }
         
         .action-btn:hover {
@@ -591,27 +763,7 @@
             border-color: var(--accent-color);
         }
         
-        .load-more-container {
-            text-align: center;
-            margin-top: 40px;
-        }
-        
-        .load-more-btn {
-            padding: 15px 40px;
-            font-size: 1.1rem;
-        }
-        
-        .load-more-btn.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .load-more-btn.disabled:hover {
-            transform: none;
-            border-bottom-width: 6px;
-        }
-        
-        /* 图片预览弹窗 */
+        /* 图片预览弹窗增强 */
         .gallery-preview {
             position: fixed;
             top: 0;
@@ -655,6 +807,54 @@
             transform: rotate(90deg);
         }
         
+        /* 预览导航按钮 */
+        .nav-preview-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(42, 42, 42, 0.8);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .prev-btn {
+            left: 30px;
+        }
+        
+        .next-btn {
+            right: 30px;
+        }
+        
+        .nav-preview-btn:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        /* 图片计数器 */
+        .preview-counter {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 1rem;
+            z-index: 10;
+        }
+        
         .preview-img {
             max-width: 90%;
             max-height: 75vh;
@@ -663,6 +863,18 @@
             border-radius: 8px;
             transition: var(--transition);
             image-rendering: pixelated;
+            animation: zoomIn 0.3s ease-out;
+        }
+        
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
         
         .preview-caption {
@@ -673,6 +885,40 @@
             max-width: 80%;
         }
         
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--text-color);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+        
         /* 响应式设计 */
         @media (max-width: 992px) {
             .gallery-grid {
@@ -681,6 +927,20 @@
             
             .notice-card {
                 padding: 25px;
+            }
+            
+            .nav-preview-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .prev-btn {
+                left: 20px;
+            }
+            
+            .next-btn {
+                right: 20px;
             }
         }
         
@@ -716,6 +976,19 @@
                 height: 40px;
                 font-size: 1.2rem;
             }
+            
+            .nav-preview-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .back-to-top {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
         }
         
         @media (max-width: 576px) {
@@ -738,6 +1011,12 @@
             
             .notice-body p {
                 font-size: 1rem;
+                text-indent: 1.5em;
+            }
+            
+            .preview-counter {
+                font-size: 0.9rem;
+                top: 80px;
             }
         }
     </style>
