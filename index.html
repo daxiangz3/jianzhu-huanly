@@ -222,12 +222,12 @@
                     <p>整合包包含必备的客户端模组和一些材质包、光影，确保一开始就能获得最佳的游戏体验。</p>
                     <div class="server-ip">
                 <span class="ip-label">服务器IP:</span>
-                <span class="ip-address">play.simpfun.cn:26891</span>
+                <span class="ip-address">暂时没有</span>
                 <button class="copy-btn" onclick="copyIP()"><i class="far fa-copy"></i></button>
             </div>
                 </div>
                 <div class="download-action">
-                    <a href="resources/1.12.2长生服.mrpack" class="btn download-btn">
+                    <a href="javascript:void(0);" onclick="disable_download()" class="btn download-btn">
                         <i class="fas fa-download download-icon"></i>
                         立即下载整合包
                     </a>
@@ -269,6 +269,9 @@
     <script>
                 function showAlert() {
             alert("您已在此页面！");
+        }
+        function disable_download() {
+            alert("目前无法下载！");
         }
 
         // 页面加载完成后执行
@@ -401,7 +404,7 @@
             
             // 更新在线人数功能
             function updatePlayerCount() {
-                const serverIp = 'play.simpfun.cn:26891';
+                const serverIp = atob("amlhbnpodS4ybS5wdWI=");
                 const apiUrl = `https://mcapi.us/server/status?ip=${serverIp}`;
                 
                 fetch(apiUrl)
@@ -440,7 +443,8 @@
             
             // 复制IP功能
             window.copyIP = function() {
-                const ipAddress = document.querySelector('.ip-address').textContent;
+                const ipAddress = "目前未开放！"
+                //const ipAddress = document.querySelector('.ip-address').textContent;
                 navigator.clipboard.writeText(ipAddress).then(function() {
                     // 创建临时提示
                     const tooltip = document.createElement('div');
